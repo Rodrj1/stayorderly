@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .container {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 280px) and (max-width: 480px) {
+  .container {
+    flex-direction: column;
+  }
+}

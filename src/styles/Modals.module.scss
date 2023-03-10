@@ -1,0 +1,47 @@
+.taskMaker,
+.projectMaker {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: var(--blue-light);
+  height: auto;
+  width: 450px;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  padding: 25px;
+  border-radius: 5px;
+
+  button {
+    width: 100%;
+  }
+
+  .flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: var(--size-small);
+      background-color: var(--red);
+      border-radius: 50px;
+      height: 20px;
+      width: 20px;
+      transition: background-color 0.2s;
+
+      &:hover {
+        cursor: pointer;
+        background-color: var(--pink-strong);
+      }
+    }
+  }
+}
+
+@media (min-width: 280px) and (max-width: 480px) {
+  .taskMaker,
+  .projectMaker {
+    width: 95%;
+  }
+}
