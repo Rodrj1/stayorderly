@@ -37,7 +37,10 @@ export const useProjectStore = create<ProjectStore>()(
     }),
     {
       name: 'todo-storage',
-      storage: createJSONStorage(() => sessionStorage),
+      partialize: (state) => ({
+        projects: state.projects,
+        selectedProject: state.selectedProject,
+      }),
     }
   )
 );
