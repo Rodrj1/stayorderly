@@ -47,6 +47,21 @@ export const deleteTask = (project: ProjectProps, task: TaskProps) => {
   return updatedCategories;
 };
 
+export const updateTasksWhenProjectNameChanges = (project: ProjectProps) => {
+  const updatedCategories: CategoryProps[] = project.categories.map(
+    (category) => {
+      const updateTasksBelonging = category.tasks.map((task) => {
+        const newTaskBelonging = { ...task, belongsTo: project.name };
+        return newTaskBelonging;
+      });
+
+      return { ...category, tasks: updateTasksBelonging };
+    }
+  );
+
+  return updatedCategories;
+};
+
 type createTask = typeof createTask;
 type editTask = typeof editTask;
 type deleteTask = typeof deleteTask;

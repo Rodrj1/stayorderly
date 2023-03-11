@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useProjectStore } from '../../../stores/useProjectStore';
 import { ProjectProps } from '../../../types';
+import { updateTasksWhenProjectNameChanges } from '../TaskMaker/updateProject';
 
 interface Props {
   handleVisibility: () => void;
@@ -26,9 +27,16 @@ export const useProjectHandler = ({ handleVisibility }: Props) => {
 
   const handleUpdateProject = () => {
     if (projectHasName) {
+      const getUpdatedTasksOwnership =
+        updateTasksWhenProjectNameChanges({...currentProject, name: tempName});
+        console.log(getUpdatedTasksOwnership);
       const updateCurrentProject = projectsInStore.map((project) => {
         if (project.name == selectedProject) {
-          return { ...project, name: tempName };
+          return {
+            ...project,
+            name: tempName,
+            categories: getUpdatedTasksOwnership,
+          };
         }
         return project;
       });
