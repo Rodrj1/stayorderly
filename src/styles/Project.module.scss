@@ -34,11 +34,23 @@
 @media (min-width: 481px) and (max-width: 767px) {
   .container {
     flex-direction: column;
+
+    .addCategory{
+      flex-direction: column;
+    }
   }
 }
 
 @media (min-width: 280px) and (max-width: 480px) {
   .container {
     flex-direction: column;
+
+    .categories {
+      gap: 50px;
+    }
+
+    .addCategory{
+      flex-direction: column;
+    }
   }
 }
