@@ -75,7 +75,7 @@ button {
   outline: none;
   height: 40px;
   border-radius: 10px;
-  width: 150px;
+  min-width: 150px;
   background-color: var(--pink);
   transition: background-color 0.2s;
 

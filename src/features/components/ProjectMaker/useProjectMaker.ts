@@ -10,7 +10,9 @@ interface Props {
 export const useProjectMaker = ({ handleProjectMaker }: Props) => {
   const [tempProject, setTempProject] =
     useState<ProjectProps>(emptyProjectTemplate);
+
   const projectsInStore = useProjectStore((state) => state.projects);
+  
   const { createProject } = useProjectStore();
 
   const handleCreateProject = () => {

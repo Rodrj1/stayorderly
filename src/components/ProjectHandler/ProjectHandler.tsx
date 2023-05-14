@@ -17,6 +17,7 @@ const ProjectHandler = ({ handleVisibility }: Props) => {
       </div>
 
       <h5>Title</h5>
+      
       <input
         placeholder="e.g. Ship development"
         onChange={(e) => handleOnChange(e)}

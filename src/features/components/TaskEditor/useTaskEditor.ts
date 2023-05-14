@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useProjectStore } from '../../../stores/useProjectStore';
-import { TaskProps } from '../../../types';
+import { ProjectProps, TaskProps } from '../../../types';
 import { useTaskAction } from '../../hooks';
 import { editTask } from '../TaskMaker/updateProject';
+import { emptyProjectTemplate } from '../../../data/templates';
 
 interface Props {
   task: TaskProps;
@@ -10,9 +11,15 @@ interface Props {
 }
 
 export const useTaskEditor = ({ task, handleVisibility }: Props) => {
+  const [currentProject, setCurrentProject] =
+    useState<ProjectProps>(emptyProjectTemplate);
+
   const [taskInEdition, setTaskInEdition] = useState<TaskProps>(task);
+
   const { doTaskAction } = useTaskAction();
-  const { updateStoredProjects } = useProjectStore();
+
+  const { updateStoredProjects, getCurrentProject } = useProjectStore();
+
   const selectedProject = useProjectStore((state) => state.selectedProject);
 
   const taskFieldsAreFilled =
@@ -22,8 +29,8 @@ export const useTaskEditor = ({ task, handleVisibility }: Props) => {
 
   const handleEditTask = () => {
     if (taskFieldsAreFilled) {
-      doTaskAction(taskInEdition, editTask).then((updatedProjects) =>
-        updateStoredProjects(updatedProjects)
+      doTaskAction(taskInEdition, editTask).then(
+        (updatedProjects) => updateStoredProjects(updatedProjects)
       );
       handleVisibility();
     }
@@ -38,5 +45,16 @@ export const useTaskEditor = ({ task, handleVisibility }: Props) => {
     setTaskInEdition(updateTempTask);
   };
 
-  return { handleEditTask, handleOnChange, taskInEdition, setTaskInEdition };
+  useEffect(() => {
+    const currentProject = getCurrentProject();
+    if (currentProject) setCurrentProject(currentProject);
+  }, []);
+
+  return {
+    handleEditTask,
+    handleOnChange,
+    taskInEdition,
+    setTaskInEdition,
+    currentProject,
+  };
 };

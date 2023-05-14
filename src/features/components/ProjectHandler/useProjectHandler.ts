@@ -18,6 +18,7 @@ export const useProjectHandler = ({ handleVisibility }: Props) => {
     deleteProject,
     deselectProject,
     selectProject,
+    getCurrentProject,
   } = useProjectStore();
   const projectHasName = tempName != '';
 
@@ -27,9 +28,10 @@ export const useProjectHandler = ({ handleVisibility }: Props) => {
 
   const handleUpdateProject = () => {
     if (projectHasName) {
-      const getUpdatedTasksOwnership =
-        updateTasksWhenProjectNameChanges({...currentProject, name: tempName});
-        console.log(getUpdatedTasksOwnership);
+      const getUpdatedTasksOwnership = updateTasksWhenProjectNameChanges({
+        ...currentProject,
+        name: tempName,
+      });
       const updateCurrentProject = projectsInStore.map((project) => {
         if (project.name == selectedProject) {
           return {
@@ -55,11 +57,11 @@ export const useProjectHandler = ({ handleVisibility }: Props) => {
   };
 
   useEffect(() => {
-    const updateCurrentProject = projectsInStore.find(
-      (project) => project.name == selectedProject
-    );
-    if (updateCurrentProject) setCurrentProject(updateCurrentProject);
-    setTempName(selectedProject);
+    const updateCurrentProject = getCurrentProject();
+    if (updateCurrentProject) {
+      setCurrentProject(updateCurrentProject);
+      setTempName(updateCurrentProject.name);
+    }
   }, [projectsInStore]);
 
   return {

@@ -8,11 +8,16 @@ interface Props {
 }
 
 const TaskEditor = ({ task, handleVisibility }: Props) => {
-  const { handleEditTask, handleOnChange, taskInEdition, setTaskInEdition } =
-    useTaskEditor({
-      task,
-      handleVisibility,
-    });
+  const {
+    handleEditTask,
+    handleOnChange,
+    taskInEdition,
+    setTaskInEdition,
+    currentProject,
+  } = useTaskEditor({
+    task,
+    handleVisibility,
+  });
 
   return (
     <div className={style.taskMaker}>
@@ -35,17 +40,20 @@ const TaskEditor = ({ task, handleVisibility }: Props) => {
         value={taskInEdition.description}
       />
 
-      <h5>Status</h5>
+      <h5>Category</h5>
+
       <div className={style.status}>
         <select
           onChange={(e) =>
             setTaskInEdition({ ...taskInEdition, status: e.target.value })
           }
-          defaultValue={taskInEdition.status}
+          value={taskInEdition.status}
         >
-          <option value="Todo">Todo</option>
-          <option value="Doing">Doing</option>
-          <option value="Completed">Completed</option>
+          {currentProject.categories.map((category) => (
+            <option key={category.name} value={category.name}>
+              {category.name}
+            </option>
+          ))}
         </select>
       </div>
 
